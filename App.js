@@ -1,22 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Block from './one';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import GlobalProvider from './src/context/Provider';
+import AppNavContainer from './src/navigations';
 
-export default function App() {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-      <Block />
-    </View>
+    <GlobalProvider>
+      {/* <SafeAreaView style={styles.container}> */}
+      <AppNavContainer />
+      {/* </SafeAreaView> */}
+    </GlobalProvider>
   );
-}
+};
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
