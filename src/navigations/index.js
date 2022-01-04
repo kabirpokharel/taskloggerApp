@@ -14,11 +14,8 @@ const AppNavContainer = () => {
   console.log('authstate >>>', authState);
 
   const [fontsLoaded] = useFonts({
-    // RobotoRegular: require('../assets/fonts/Roboto-Regular.ttf'),
-    // RobotoBold: require('../assets/fonts/Roboto-Bold.ttf'),
-    // RobotoRegular: require('../assets/fonts/Montserrat-Regular.ttf'),
-    RobotoRegular: require('../assets/fonts/PlayfairDisplay-Regular.ttf'),
-    RobotoBold: require('../assets/fonts/Montserrat-SemiBold.ttf'),
+    RobotoRegular: require('../assets/fonts/Roboto-Regular.ttf'),
+    RobotoBold: require('../assets/fonts/Roboto-Medium.ttf'),
   });
 
   if (!fontsLoaded) {
