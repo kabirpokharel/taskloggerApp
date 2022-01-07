@@ -1,5 +1,7 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  margin: 20,
+  wrapper: {
+    padding: 20,
+  },
 });

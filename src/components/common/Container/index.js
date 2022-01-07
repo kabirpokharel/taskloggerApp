@@ -1,22 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
+import styles from './styles';
 
-const Container = ({ children }) => {
+const Container = ({style, children}) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>{children}</ScrollView>
-    </SafeAreaView>
+    <ScrollView>
+      <View style={[styles.wrapper, style]}>{children}</View>
+    </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // paddingTop: StatusBar.currentHeight,
-  },
-  scrollView: {
-    marginHorizontal: 10,
-  },
-});
 
 export default Container;
