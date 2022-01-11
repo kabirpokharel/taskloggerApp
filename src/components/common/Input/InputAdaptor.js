@@ -1,9 +1,19 @@
 import React from 'react';
 import { View, Text, TextInput } from 'react-native';
-import colors from '../../../assets/theme/colors';
+import PropTypes from 'prop-types';
+import { COLORS, FONTS } from '../../../assets/theme/designSystem';
 import styles from './styles';
 
-const Input = ({ onChangeText, iconPosition, icon, style, value, label, error, ...props }) => {
+const InputAdaptor = ({
+  onChangeText,
+  iconPosition,
+  icon,
+  style,
+  value,
+  label,
+  error,
+  ...props
+}) => {
   const [focused, setFocused] = React.useState(false);
 
   const getFlexDirection = () => {
@@ -18,19 +28,18 @@ const Input = ({ onChangeText, iconPosition, icon, style, value, label, error, .
 
   const getBorderColor = () => {
     if (error) {
-      return colors.danger;
+      return COLORS.danger;
     }
 
     if (focused) {
-      return colors.primary;
+      return COLORS.primary;
     } else {
-      return colors.grey;
+      return COLORS.primary2;
     }
   };
   return (
     <View style={styles.inputContainer}>
-      {label && <Text>{label}</Text>}
-
+      {label && <Text style={[FONTS.body4, styles.labelStyle]}>{label}</Text>}
       <View
         style={[
           styles.wrapper,
@@ -39,10 +48,10 @@ const Input = ({ onChangeText, iconPosition, icon, style, value, label, error, .
         ]}
       >
         <View>{icon && icon}</View>
-
         <TextInput
-          style={[styles.textInput, style]}
+          style={[FONTS.body5, styles.textInput]}
           onChangeText={onChangeText}
+          placeholderTextColor={COLORS.primary2}
           value={value}
           onFocus={() => {
             setFocused(true);
@@ -53,10 +62,19 @@ const Input = ({ onChangeText, iconPosition, icon, style, value, label, error, .
           {...props}
         />
       </View>
-
       {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };
 
-export default Input;
+InputAdaptor.propTypes = {
+  onChangeText: PropTypes.func.isRequired,
+  iconPosition: PropTypes.string,
+  icon: PropTypes.element,
+  style: PropTypes.object,
+  value: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  error: PropTypes.string,
+};
+
+export default InputAdaptor;

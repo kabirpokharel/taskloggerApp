@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import styles from './styles';
 
-const Container = ({style, children}) => {
+const Container = ({ style, children }) => {
   return (
-    <ScrollView>
+    <ScrollView style={styles.scrollViewStyle}>
       <View style={[styles.wrapper, style]}>{children}</View>
     </ScrollView>
   );

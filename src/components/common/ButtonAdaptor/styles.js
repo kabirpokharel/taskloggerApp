@@ -1,25 +1,24 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../../assets/theme/colors';
+import { COLORS } from '../../../assets/theme/designSystem';
 
 export default StyleSheet.create({
-  wrapper: {
+  touchableStyle: {
     height: 42,
-
     paddingHorizontal: 5,
-
     marginVertical: 5,
     borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'space-evenly',
+    backgroundColor: COLORS.primary,
   },
 
   loaderSection: {
     flexDirection: 'row',
   },
 
-  textInput: {
-    flex: 1,
-    width: '100%',
+  bthText: {
+    color: COLORS.white,
   },
 
   error: {

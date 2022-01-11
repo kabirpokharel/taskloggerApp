@@ -1,23 +1,13 @@
-import {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import React from 'react';
-import {useCallback} from 'react';
-import {useEffect} from 'react';
-import {View, Text, TextInput, ActivityIndicator} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {color} from 'react-native-reanimated';
+import { useCallback } from 'react';
+import { useEffect } from 'react';
+import { View, Text, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native';
+import { color } from 'react-native-reanimated';
 import colors from '../../../assets/theme/colors';
 import styles from './styles';
 
-const Message = ({
-  message,
-  onDismiss,
-  retry,
-  retryFn,
-  primary,
-  danger,
-  info,
-  success,
-}) => {
+const Message = ({ message, onDismiss, retry, retryFn, primary, danger, info, success }) => {
   const [userDismissed, setDismissed] = React.useState(false);
 
   const getBgColor = () => {
@@ -38,18 +28,19 @@ const Message = ({
   return (
     <>
       {userDismissed ? null : (
-        <TouchableOpacity
-          style={[styles.wrapper, {backgroundColor: getBgColor()}]}>
+        <TouchableOpacity style={[styles.wrapper, { backgroundColor: getBgColor() }]}>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
-            }}>
+            }}
+          >
             <Text
               style={{
                 color: colors.white,
-              }}>
+              }}
+            >
               {message}
             </Text>
 
@@ -58,7 +49,8 @@ const Message = ({
                 <Text
                   style={{
                     color: colors.white,
-                  }}>
+                  }}
+                >
                   Retry
                 </Text>
               </TouchableOpacity>
@@ -69,11 +61,13 @@ const Message = ({
                 onPress={() => {
                   setDismissed(true);
                   onDismiss();
-                }}>
+                }}
+              >
                 <Text
                   style={{
                     color: colors.white,
-                  }}>
+                  }}
+                >
                   X
                 </Text>
               </TouchableOpacity>

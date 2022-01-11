@@ -1,23 +1,27 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../../assets/theme/colors';
+import { COLORS, SIZES } from '../../../assets/theme/designSystem';
 
 export default StyleSheet.create({
+  labelStyle: {
+    color: COLORS.primary1,
+  },
   wrapper: {
-    height: 42,
+    height: SIZES.baseSize * 42,
     borderWidth: 1,
     borderRadius: 4,
-    paddingHorizontal: 5,
-
-    marginTop: 5,
+    paddingHorizontal: SIZES.baseSize * 5,
+    marginTop: SIZES.baseSize * 5,
   },
 
   inputContainer: {
-    paddingVertical: 12,
+    paddingVertical: SIZES.baseSize * 12,
   },
 
   textInput: {
     flex: 1,
     width: '100%',
+    color: COLORS.primary1,
   },
 
   error: {

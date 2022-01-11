@@ -69,8 +69,8 @@ export const SIZES = {
 };
 
 export const FONTS = {
-  largeTitle: { fontFamily: 'RobotoRegular', fontSize: SIZES.largeTitle, lineHeight: 40 },
-  h1: { fontFamily: 'RobotoBlack', fontSize: SIZES.h1, lineHeight: 36 },
+  largeTitle: { fontFamily: 'RobotoBold', fontSize: SIZES.largeTitle, lineHeight: 40 },
+  h1: { fontFamily: 'RobotoBold', fontSize: SIZES.h1, lineHeight: 36 },
   h2: { fontFamily: 'RobotoBold', fontSize: SIZES.h2, lineHeight: 33 },
   h3: { fontFamily: 'RobotoBold', fontSize: SIZES.h3, lineHeight: 25 },
   h4: { fontFamily: 'RobotoBold', fontSize: SIZES.h4, lineHeight: 22 },
