@@ -6,8 +6,9 @@ import InputAdaptor from '../../components/common/Input/InputAdaptor';
 import ButtonAdaptor from '../common/ButtonAdaptor/ButtonAdaptor';
 import styles from './styles';
 
-const loginForm = ({ navigation }) => {
+const loginForm = () => {
   const [form, setForm] = useState({});
+  const [error, setError] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const formInputChange = (text, inputName) => {
     setForm({ ...form, [inputName]: text });
@@ -17,12 +18,17 @@ const loginForm = ({ navigation }) => {
       <InputAdaptor
         label="Email"
         placeholder="Enter your email"
+        keyboardType="email-address"
+        // onBlur={()=>{}}
+        // onFocus={()=>{}}
         value={form.email || ''}
         onChangeText={(text) => formInputChange(text, 'email')}
       />
       <InputAdaptor
         label="Password"
         placeholder="Enter Password"
+        // onBlur={()=>{}}
+        // onFocus={()=>{}}
         value={form.password || ''}
         secureTextEntry={!showPassword}
         icon={

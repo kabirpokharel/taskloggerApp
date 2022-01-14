@@ -7,12 +7,13 @@ import {
   Image,
 } from 'react-native';
 import { COLORS, SIZES } from '../../assets/theme/designSystem';
+import PageTemplate from '../../components/common/PageTemplate/PageContainer';
 import LoginForm from '../../components/forms/LoginForm';
 import styles from './styles.js';
 
 const LoginScreen = ({ navigation }) => {
   return (
-    <View style={styles.pageContainer}>
+    <PageTemplate containerStyle={styles.pageContainer}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={styles.touchableStyle}>
         <KeyboardAvoidingView>
           <View style={styles.logoWrapper}>
@@ -28,11 +29,11 @@ const LoginScreen = ({ navigation }) => {
             />
           </View>
           <View style={styles.loginFormWrapper}>
-            <LoginForm {...{ navigation }} />
+            <LoginForm />
           </View>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
-    </View>
+    </PageTemplate>
   );
 };
 
