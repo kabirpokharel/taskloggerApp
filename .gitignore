@@ -16,3 +16,4 @@ web-build/
 # added by developer(ribak)
 .env
 .vscode/
+src/constants/baseURL.js

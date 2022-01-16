@@ -1929,6 +1929,13 @@ axe-core@^4.3.5:
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.3.5.tgz"
   integrity sha512-WKTW1+xAzhMS5dJsxWkliixlO/PqC4VhmO9T4juNYcaTg9jzWiJsou6m5pxWYGfigWbwzJWeFY6z47a+4neRXA==
 
+axios@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
+  integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
+  dependencies:
+    follow-redirects "^1.14.4"
+
 axobject-query@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/axobject-query/-/axobject-query-2.2.0.tgz"
@@ -3031,6 +3038,14 @@ expo-asset@~8.4.5:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-barcode-scanner@~11.2.0:
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/expo-barcode-scanner/-/expo-barcode-scanner-11.2.0.tgz#9d316a36962f74f117f19f7c722de1334a4fd8d2"
+  integrity sha512-Dmp6KTzkMa9E561gR7kRP8ZXfVdAn9SLUwQ5DdeEGTC7D1NIqEO8WmyfVtWSLUUSArF6QxL+oYOZyzJ+LVjkHA==
+  dependencies:
+    "@expo/config-plugins" "^4.0.2"
+    expo-image-loader "~3.1.0"
+
 expo-constants@~13.0.0:
   version "13.0.0"
   resolved "https://registry.npmjs.org/expo-constants/-/expo-constants-13.0.0.tgz"
@@ -3058,6 +3073,11 @@ expo-font@~10.0.4:
   integrity sha512-ieEsT6tD6yD6qT7WUzzJ5el0UvACr53RqICu0GI9GUiWuwDFPM2Oi5WfWwYFFStCRuaP6kEtpkJDUZ9cjT5F+w==
   dependencies:
     fontfaceobserver "^2.1.0"
+
+expo-image-loader@~3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/expo-image-loader/-/expo-image-loader-3.1.0.tgz#d60d57d6d36d1ea9b07ed2e8bed87574edd2ad1e"
+  integrity sha512-86oT25SDTO018hWO61HGnoB4l+DEgT9sOoW24rvXX99VBe/MPheGo+DDNKtLNf6k06n/OFL3LgtR0m9YpOCT8Q==
 
 expo-keep-awake@~10.0.1:
   version "10.0.1"
@@ -3314,6 +3334,11 @@ flow-parser@^0.121.0:
   version "0.121.0"
   resolved "https://registry.npmjs.org/flow-parser/-/flow-parser-0.121.0.tgz"
   integrity sha512-1gIBiWJNR0tKUNv8gZuk7l9rVX06OuLzY9AoGio7y/JT4V1IZErEMEq2TJS+PFcw/y0RshZ1J/27VfK1UQzYVg==
+
+follow-redirects@^1.14.4:
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
+  integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
 
 fontfaceobserver@^2.1.0:
   version "2.1.0"

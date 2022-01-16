@@ -5,7 +5,6 @@ import { COLORS } from '../../../assets/theme/designSystem';
 export default StyleSheet.create({
   touchableStyle: {
     height: 42,
-    paddingHorizontal: 5,
     marginVertical: 5,
     borderRadius: 4,
     alignItems: 'center',

@@ -1,7 +1,7 @@
 const authInitialState = {
   isLoggedIn: false,
   data: {},
-  error: false,
+  error: null,
   loading: false,
 };
 

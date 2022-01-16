@@ -1,17 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import axiosInstance from '../../helpers/axiosInstance';
 import { COLORS, FONTS, SIZES } from '../../assets/theme/designSystem';
 import InputAdaptor from '../../components/common/Input/InputAdaptor';
 import ButtonAdaptor from '../common/ButtonAdaptor/ButtonAdaptor';
+import { LOGIN } from '../../constants/routeName';
+
 import styles from './styles';
+import { GlobalContext } from '../../context/Provider';
+import loginUserAction from '../../context/actions/loginUserAction';
+// import axios from 'axios';
 
 const loginForm = () => {
-  const [form, setForm] = useState({});
-  const [error, setError] = useState({});
+  const [form, setForm] = useState({ email: 'kabirpokharel12@gmail.com', password: '123admin' });
+  const [formError, setFormError] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+
   const formInputChange = (text, inputName) => {
     setForm({ ...form, [inputName]: text });
+  };
+
+  const {
+    authContext: { authDispatch, authState },
+  } = useContext(GlobalContext);
+  const { isLoggedIn, data, error, loading } = authState;
+
+  const onSubmit = async () => {
+    if (form.email && form.password) {
+      loginUserAction(form)(authDispatch);
+      console.log('this is authState -- ->', authState);
+    }
+    // const result = await axiosInstance.post(`/login/apple`, form).catch((err) => {
+    //   console.log('this is an error form axios await&&&-- > ', err.response);
+    // });
+    // if (result?.data) {
+    //   console.log('this is result --->', result);
+    // }
   };
   return (
     <View>
@@ -42,23 +67,21 @@ const loginForm = () => {
         iconPosition="right"
         onChangeText={(text) => formInputChange(text, 'password')}
       />
-      {/* onChangeText, iconPosition, icon, style, value, label, error, ...props */}
       <View style={styles.buttonAdaptorWrapper}>
         <ButtonAdaptor
           title="Login"
           type="primary"
-          onPress={() => alert('Btn pressed')}
+          loading={loading}
+          // disabled
+          onPress={onSubmit}
           buttonStyle={{}}
           textStyle={{}}
         />
       </View>
       <View style={styles.linkWrapper}>
-        <TouchableOpacity onPress={() => alert('link to forgot password')}>
+        <TouchableOpacity onPress={() => alert('Hey')}>
           <Text style={[styles.linkText, FONTS.body4]}>Forgot Password?</Text>
         </TouchableOpacity>
-      </View>
-      <View>
-        <Text>{form.email || ''}</Text>
       </View>
     </View>
   );

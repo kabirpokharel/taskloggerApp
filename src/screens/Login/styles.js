@@ -3,7 +3,8 @@ import { COLORS, SIZES } from '../../assets/theme/designSystem';
 
 export default StyleSheet.create({
   pageContainer: {
-    paddingTop: SIZES.baseSize * 60,
+    // paddingTop: SIZES.baseSize * 60,
+    justifyContent: 'center',
   },
   touchableStyle: {
     height: '100%',
@@ -11,6 +12,8 @@ export default StyleSheet.create({
   },
   logoWrapper: {
     alignItems: 'center',
+    marginBottom: SIZES.baseSize * 30,
+    marginTop: SIZES.baseSize * -80,
   },
   loginFormWrapper: {
     marginHorizontal: SIZES.baseSize * 30,

@@ -11,11 +11,11 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     paddingHorizontal: SIZES.baseSize * 5,
-    marginTop: SIZES.baseSize * 5,
+    // marginTop: SIZES.baseSize * 5,
   },
 
   inputContainer: {
-    paddingVertical: SIZES.baseSize * 12,
+    paddingBottom: SIZES.baseSize * 16,
   },
 
   textInput: {

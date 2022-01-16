@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 import authInitialState from './initialStates/authInitialState';
-import authReducer from './reducers/auth';
+import authReducer from './reducers/authReducer';
 
 export const GlobalContext = createContext({});
 

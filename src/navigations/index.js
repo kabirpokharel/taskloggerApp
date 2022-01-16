@@ -9,8 +9,9 @@ import { COLORS, SIZES, FONTS } from '../assets/theme/designSystem';
 
 const AppNavContainer = () => {
   const isLoggedIn = true;
-  const { authContext } = useContext(GlobalContext);
-  const { authDispatch, authState } = authContext;
+  const {
+    authContext: { authDispatch, authState },
+  } = useContext(GlobalContext);
   console.log('authstate >>>', authState);
 
   const [fontsLoaded] = useFonts({
