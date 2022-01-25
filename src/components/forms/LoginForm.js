@@ -29,14 +29,7 @@ const loginForm = () => {
   const onSubmit = async () => {
     if (form.email && form.password) {
       loginUserAction(form)(authDispatch);
-      console.log('this is authState -- ->', authState);
     }
-    // const result = await axiosInstance.post(`/login/apple`, form).catch((err) => {
-    //   console.log('this is an error form axios await&&&-- > ', err.response);
-    // });
-    // if (result?.data) {
-    //   console.log('this is result --->', result);
-    // }
   };
   return (
     <View>

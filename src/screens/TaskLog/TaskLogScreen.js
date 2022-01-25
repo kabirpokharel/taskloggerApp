@@ -1,119 +1,249 @@
 // *******example code to be implement on task logg page
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
 import {
   Dimensions,
   FlatList,
   LayoutAnimation,
+  ActivityIndicator,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  Platform,
 } from 'react-native';
-const { width } = Dimensions.get('window');
+import { GlobalContext } from '../../context/Provider';
+import { MaterialIcons } from '@expo/vector-icons';
+import { initilizeLocationAttribute } from '../../context/actions/tasklogAction';
 
-const headers = [
-  'header1',
-  'header header 2',
-  'header3',
-  'header header4',
-  'header5',
-  'header header6',
-  'header7',
-  'header header8',
-  'header9',
-  'header10',
-];
+import Block from './Block';
+import Room from './Room';
+import { SIZES, FONTS, COLORS } from '../../assets/theme/designSystem';
+import FooterButton from '../../components/common/oldComponent/FooterButton';
+import PageTemplate from '../../components/common/oldComponent/PageTemplate';
+import CardComponent from '../../components/common/oldComponent/CardComponent';
+import ExtraAreas from './ExtraAreas';
+import TitleWithDescription from '../../components/common/oldComponent/TitleWithDescription';
+import { SUMMARY } from '../../constants/routeName';
 
-export default function ScrollableTabViewPager() {
-  const [active, setActive] = useState(0);
-  const headerScrollView = useRef();
-  const itemScrollView = useRef();
+const TaskLogScreen = ({ navigation, route }) => {
+  const [selectedBlockId, setSelectedBlockId] = useState('');
+  const [overlay, setOverlay] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const {
+    tasklogContext: { tasklogState, tasklogDispatch },
+  } = useContext(GlobalContext);
+
+  const {
+    taskLog,
+    loading,
+    cleaningTypeCount: { daily, thorough },
+  } = tasklogState;
+  // const { daily, thorough } = cleaningTypeCount;
+  const cleanedRoomCount = daily + thorough;
+  const { locationID } = route.params;
+  console.log('see this is locaiton ID', locationID);
   useEffect(() => {
-    headerScrollView.current.scrollToIndex({ index: active, viewPosition: 0.5 });
-  }, [active]);
-  const onPressHeader = (index) => {
-    itemScrollView.current.scrollToIndex({ index });
-    LayoutAnimation.easeInEaseOut();
-    setActive(index);
-  };
-  const onMomentumScrollEnd = (e) => {
-    const newIndex = Math.round(e.nativeEvent.contentOffset.x / width);
-    if (active != newIndex) {
-      LayoutAnimation.easeInEaseOut();
-      setActive(newIndex);
+    // console.log('see this is tasklogDispatch', tasklogDispatch);
+    // tasklogDispatch({ type: 'LOCATION_DETAIL_INITIALIZING' });
+    initilizeLocationAttribute(locationID)(tasklogDispatch);
+  }, []);
+
+  const navigationToSummaryPage = () => {
+    if (cleanedRoomCount) {
+      navigation.navigate(SUMMARY);
+    } else {
+      setShowModal(true);
     }
   };
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={headers}
-        ref={headerScrollView}
-        keyExtractor={(item) => item}
-        horizontal
-        style={styles.headerScroll}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item, index }) => (
-          <View>
-            <TouchableOpacity
-              onPress={() => onPressHeader(index)}
-              key={item}
-              style={[
-                styles.headerItem,
-                { backgroundColor: active == index ? '#b6d7fc' : '#82bcff' },
-              ]}
-            >
-              <Text>{item}</Text>
-            </TouchableOpacity>
-            {active == index && <View style={styles.headerBar} />}
-          </View>
-        )}
-      />
-      <FlatList
-        data={headers}
-        ref={itemScrollView}
-        keyExtractor={(item) => item}
-        horizontal
-        pagingEnabled
-        decelerationRate="fast"
-        showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={onMomentumScrollEnd}
-        viewabilityConfig={{ viewAreaCoveragePercentThreshold: 50 }}
-        renderItem={({ item, index }) => (
-          <View key={item} style={styles.mainItem}>
-            <Text>card {index + 1}</Text>
-          </View>
-        )}
-      />
-    </View>
-  );
-}
 
+  return (
+    <PageTemplate>
+      <TitleWithDescription title="Block" description="Select block to access rooms" />
+      {showModal && !cleanedRoomCount && (
+        <Modal transparent isVisible={cleanedRoomCount > 0}>
+          <View
+            style={{
+              flex: 1,
+              // alignItems: 'center',
+              // justifyContent: 'center',
+              backgroundColor: 'rgba(0,0,0,0.5)',
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => setShowModal(false)}
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <View style={styles.popupModalWrapper}>
+                <View style={{ marginBottom: 20 }}>
+                  <MaterialIcons name="info" size={80} color="#4285f4" />
+                </View>
+                <Text style={[FONTS.body2, { color: COLORS.primary, marginBottom: 5 }]}>
+                  Attention!!
+                </Text>
+                <Text
+                  style={[
+                    FONTS.body5,
+                    { color: COLORS.primary1, fontSize: 15, textAlign: 'center' },
+                  ]}
+                >
+                  No room selected, log your task before proceeding
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      )}
+      {overlay && (
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'black',
+            opacity: 0.4,
+            zIndex: 1,
+          }}
+          onPress={() => setOverlay(false)}
+        >
+          {/* <TouchableOpacity style={{ backgroundColor: 'green', height: '100%', width: '100%' }} onPress={() => setOverlay(false)} /> */}
+        </TouchableOpacity>
+      )}
+      {loading ? (
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: SIZES.baseSize * 89,
+          }}
+        >
+          <ActivityIndicator size="large" color="#00ff00" />
+        </View>
+      ) : (
+        <View style={{ marginHorizontal: 20 }}>
+          <Block
+            {...{
+              taskLog,
+              selectedBlockId,
+              setSelectedBlockId,
+              tasklogDispatch,
+            }}
+          />
+        </View>
+      )}
+      {overlay && (
+        <View
+          style={{
+            zIndex: 2,
+            position: 'absolute',
+            top: SIZES.baseSize * 190,
+            right: 0,
+          }}
+        >
+          <CardComponent cardStyle={{ borderRadius: 7 }}>
+            <TouchableOpacity
+              style={{
+                paddingHorizontal: 8,
+                paddingVertical: 5,
+                justifyContent: 'center',
+              }}
+              onPress={() => {
+                console.log('currentBlockid from Home screen', currentBlockId);
+                // setOverlay(false);
+                // dispatch(resetCurrentBlock(currentBlockId));
+              }}
+            >
+              <Text
+                style={[
+                  FONTS.body4,
+                  // {
+                  //   color: checkBlockStatus(currentBlockId, taskLog).isEmpty
+                  //     ? COLORS.light1
+                  //     : COLORS.primary,
+                  // },
+                ]}
+              >
+                Reset current Block
+              </Text>
+            </TouchableOpacity>
+            <View
+              style={{
+                marginHorizontal: SIZES.baseSize * 5,
+                borderBottomColor: COLORS.light1,
+                borderBottomWidth: 1,
+              }}
+            />
+            <TouchableOpacity
+              style={{
+                paddingHorizontal: SIZES.baseSize * 8,
+                paddingVertical: SIZES.baseSize * 5,
+                justifyContent: 'center',
+              }}
+              onPress={() => {
+                console.log('currentBlockid from Home screen', currentBlockId);
+                setOverlay(false);
+                // dispatch(resetCurrentBlock(currentBlockId));
+              }}
+            >
+              <Text
+                style={[
+                  FONTS.body4,
+                  // {
+                  //   color: checkBlockStatus(currentBlockId, taskLog).isEmpty
+                  //     ? COLORS.light1
+                  //     : COLORS.primary,
+                  // },
+                ]}
+              >
+                Reset all
+              </Text>
+            </TouchableOpacity>
+          </CardComponent>
+        </View>
+      )}
+      <Room
+        {...{
+          // overlay,
+          setOverlay,
+          selectedBlockId,
+          tasklogDispatch,
+          taskLog,
+        }}
+      />
+      <ExtraAreas {...{ selectedBlockId, taskLog, tasklogDispatch }} />
+      <FooterButton
+        onPress={navigationToSummaryPage}
+        containerStyle
+        textStyle
+        btnText="Continue to summary"
+      />
+      {/* <SafeAreaView /> */}
+    </PageTemplate>
+  );
+};
+
+export default TaskLogScreen;
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  headerScroll: {
-    flexGrow: 0,
-  },
-  headerItem: {
+  popupModalWrapper: {
+    width: '85%',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
-  },
-  mainItem: {
-    width: width,
-    borderWidth: 5,
-    borderColor: '#fff',
-    backgroundColor: '#ccc',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerBar: {
-    height: 2,
-    width: '90%',
-    alignSelf: 'center',
-    backgroundColor: '#000',
-    position: 'absolute',
-    bottom: 0,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    backgroundColor: 'white',
+    elevation: 20,
+    paddingHorizontal: 20,
+    paddingTop: 25,
+    paddingBottom: 30,
+    borderRadius: 25,
   },
 });
